@@ -17,17 +17,20 @@ namespace FKRRAY001{
         char val;
         nodePtr left, right, parent;
     public:
-        HuffmanNode();
-        HuffmanNode(char& cref);
+        const int f;
+        HuffmanNode(char c, int freq): val(c),f(freq){}
+        char get(void);
+        int getf(void);
     };
     
     class HuffmanTree{
         typedef std::shared_ptr<HuffmanNode> nodePtr;
         nodePtr root;
     public:
-        HuffmanTree();
-        
-        bool insert(char& cref);
+        HuffmanTree(): root(nullptr){}
+        HuffmanNode* getRoot(void);
+        bool insert(char* cptr, int freq);
+        bool compare(const HuffmanNode& a, const HuffmanNode& b);
     };
     
         

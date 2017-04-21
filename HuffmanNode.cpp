@@ -3,13 +3,17 @@
 // Driver class
 
 #include "huffencode.h"
+
+using namespace std;
+
 using HTree = FKRRAY001::HuffmanTree;
 using HNode = FKRRAY001::HuffmanNode;
 typedef std::shared_ptr<FKRRAY001::HuffmanNode> nodePtr;
 
+int f;
 char val;
 nodePtr left, right, parent;
 
-HNode::HuffmanNode(char& cref){
-    
+char HNode::get(){
+    return this->val;
 }

@@ -7,8 +7,8 @@ default:
 	$(CC) -o huffencode driver.o HuffmanNode.o HuffmanTree.o -std=c++11
 
 debug:
-	$(CC) -g driver.cpp -std=c++11
-	gdb ./a.out
+	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
+	gdb --args ./a.out inf outf
 
 clean:
 	rm -f *.o

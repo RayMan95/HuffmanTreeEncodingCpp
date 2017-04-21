@@ -4,8 +4,30 @@
 
 #ifndef HUFFENCODE_H
 #define HUFFENCODE_H
-namespace FKRRAY001
-{
+
+#include <string>
+#include <memory>
+
+namespace FKRRAY001{
 	
+    void say(std::string s);
+    
+    class HuffmanNode{
+        typedef std::shared_ptr<HuffmanNode> nodePtr;
+        
+        nodePtr left, right, parent;
+        HuffmanNode(): left(nullptr), right(nullptr), parent(nullptr){}
+        HuffmanNode(nodePtr l, nodePtr r, nodePtr p): left(l), right(r), parent(p){}
+    };
+    
+    class HuffmanTree{
+        typedef std::shared_ptr<HuffmanNode> nodePtr;
+        nodePtr root;
+        HuffmanTree():root(nullptr){}
+        
+        bool insert(nodePtr n);
+    };
+    
+        
 }
 #endif

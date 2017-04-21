@@ -19,10 +19,14 @@ int main(int argc, char **argv){
         string outFileName = string(argv[2]);
 
         FKRRAY001::say(inFileName + " " + outFileName);
+        FKRRAY001::HuffmanTree * ht = new FKRRAY001::HuffmanTree();
+        char c[] = "kill";
+        char& cref = c[0];
+        ht->insert(cref);
 
     }
 
-	return 0;
+    return 0;
 }
 
 // Basic printing method

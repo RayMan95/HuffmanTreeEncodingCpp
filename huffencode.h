@@ -14,18 +14,20 @@ namespace FKRRAY001{
     
     class HuffmanNode{
         typedef std::shared_ptr<HuffmanNode> nodePtr;
-        
+        char val;
         nodePtr left, right, parent;
-        HuffmanNode(): left(nullptr), right(nullptr), parent(nullptr){}
-        HuffmanNode(nodePtr l, nodePtr r, nodePtr p): left(l), right(r), parent(p){}
+    public:
+        HuffmanNode();
+        HuffmanNode(char& cref);
     };
     
     class HuffmanTree{
         typedef std::shared_ptr<HuffmanNode> nodePtr;
         nodePtr root;
-        HuffmanTree():root(nullptr){}
+    public:
+        HuffmanTree();
         
-        bool insert(nodePtr n);
+        bool insert(char& cref);
     };
     
         

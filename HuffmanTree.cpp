@@ -10,8 +10,8 @@ using namespace std;
 using HTree = FKRRAY001::HuffmanTree;
 using HNode = FKRRAY001::HuffmanNode;
 typedef std::shared_ptr<FKRRAY001::HuffmanNode> nodePtr;
-std::unordered_map<char, int> charFreqs;
 
+unordered_map<char, int> charFreqs;
 nodePtr root;
 int uniqueChars;
 
@@ -35,15 +35,18 @@ void HTree::buildTree(string fileInName){
         else
             charFreqs[c] = charFreqs[c]+1;
     }
+    vector<HNode> nodeVec;
+    for (auto c : charFreqs){
+        HNode* newNode = new HNode(c.first, c.second); // TODO: use shared_ptrs
+        nodeVec.push_back(*newNode);
+    }
+    
+    priority_queue<HNode, vector<HNode>, HNode::compare> myQueue;
+    for (auto v : nodeVec){
+        myQueue.push(v); // TODO: not properly ordered
+    }
     
     ifile.close();
-}
-
-bool HTree::compare(const HNode& a, const HNode& b){
-    if (a.f < b.f)
-        return true; // or > if the algorithm requires that ordering
-    else 
-        return false;
 }
 
 HNode* HTree::getRoot(void){

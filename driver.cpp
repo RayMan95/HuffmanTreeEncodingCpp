@@ -24,7 +24,8 @@ int main(int argc, char **argv){
         
         FKRRAY001::HuffmanTree * ht = new FKRRAY001::HuffmanTree();
         char c[] = "k";
-        cout << to_string(ht->insert(c,0)) << endl;
+        ht->buildTree("test.txt");
+//        cout << to_string(ht->insert(c,0)) << endl;
 //        cout << to_string(ht->getRoot()->get()) << endl;
         
         cout << outFileName << " built from " << inFileName << endl;

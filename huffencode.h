@@ -7,6 +7,7 @@
 
 #include <string>
 #include <memory>
+#include <unordered_map>
 
 namespace FKRRAY001{
 	
@@ -16,6 +17,7 @@ namespace FKRRAY001{
         typedef std::shared_ptr<HuffmanNode> nodePtr;
         char val;
         nodePtr left, right, parent;
+        std::unordered_map<char, int> charFreqs;
     public:
         const int f;
         HuffmanNode(char c, int freq): val(c),f(freq){}
@@ -26,11 +28,13 @@ namespace FKRRAY001{
     class HuffmanTree{
         typedef std::shared_ptr<HuffmanNode> nodePtr;
         nodePtr root;
+        int uniqueChars;
     public:
         HuffmanTree(): root(nullptr){}
         HuffmanNode* getRoot(void);
         bool insert(char* cptr, int freq);
         bool compare(const HuffmanNode& a, const HuffmanNode& b);
+        void buildTree(std::string fileInName);
     };
     
         

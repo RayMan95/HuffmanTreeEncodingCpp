@@ -44,7 +44,7 @@ namespace FKRRAY001{
     public:
         HuffmanTree(): root(nullptr){}
         bool insert(char* cptr, int freq);
-        void buildTree(std::string fileInName);
+        int buildTree(std::string fileInName);
         nodePtr getRoot(void);
         void buildCodes(nodePtr root, std::string str, const char head);
     };

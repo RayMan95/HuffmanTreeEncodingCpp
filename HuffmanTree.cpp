@@ -21,7 +21,7 @@ bool HTree::insert(char* cptr, int freq){
     return false;
 }
 
-void HTree::buildTree(string fileInName){
+int HTree::buildTree(string fileInName){
     ifstream ifile;
     ifile.open(fileInName);
     char c;
@@ -56,7 +56,6 @@ void HTree::buildTree(string fileInName){
 
         nodePtr parent = shared_ptr<HNode>(new HNode(headChar[0], left->f+right->f));
         // assign family links
-        // TODO fix children nesting
         parent->setChildren(left, right);
         left->setParent(parent);
         right->setParent(parent);
@@ -66,10 +65,12 @@ void HTree::buildTree(string fileInName){
     myQueue.pop();
     ifile.close();
     this->buildCodes(this->root,"", headChar[0]);
-    cout << endl;
+//    cout << endl;
 //    for (auto p : codeTable){
 //        cout << p.first << ": " << p.second << endl;
 //    }
+    
+    return codeTable.size();
 }
 
 nodePtr HTree::getRoot(void){

@@ -11,6 +11,10 @@ debug:
 	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
 	gdb --args ./a.out test.txt output.txt
 
+test:
+	$(CC) -o test test.cpp -std=c++11
+	./test
+
 clean:
 	rm -f *.o
 	rm huffencode

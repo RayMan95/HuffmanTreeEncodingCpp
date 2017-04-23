@@ -3,7 +3,7 @@
 // Driver class
 
 #include <fstream>
-
+#include <iostream>
 #include "huffencode.h"
 
 using namespace std;
@@ -11,14 +11,10 @@ using HTree = FKRRAY001::HuffmanTree;
 using HNode = FKRRAY001::HuffmanNode;
 typedef std::shared_ptr<FKRRAY001::HuffmanNode> nodePtr;
 
-unordered_map<char, int> charFreqs;
-nodePtr root;
-int uniqueChars;
-
 bool HTree::insert(char* cptr, int freq){
     nodePtr n(new HNode(*cptr, freq));
-    if (root == nullptr){
-        root = move(n);
+    if (this->root == nullptr){
+        this->root = move(n);
         return true;
     }
     
@@ -30,29 +26,64 @@ void HTree::buildTree(string fileInName){
     ifile.open(fileInName);
     char c;
     while (ifile >> c){
-        if (charFreqs.find(c) == charFreqs.end()) // not yet added
-            charFreqs[c] = 1;
+        if (this->charFreqs.find(c) == this->charFreqs.end()) // not yet added
+            this->charFreqs[c] = 1;
         else
-            charFreqs[c] = charFreqs[c]+1;
+            this->charFreqs[c] = this->charFreqs[c]+1;
     }
     vector<shared_ptr<HNode>> nodeVec;
-    for (auto c : charFreqs){
+    for (auto c : this->charFreqs){
         nodePtr newNodePtr = shared_ptr<HNode>(new HNode(c.first, c.second));
         nodeVec.push_back(newNodePtr);
     }
     
+    // is a min-queue
     priority_queue<shared_ptr<HNode>, vector<shared_ptr<HNode>>, HNode::compare> myQueue;
     for (shared_ptr<HNode> v : nodeVec){
-        myQueue.push(v); // TODO: not properly ordered
+        myQueue.push(v);
     }
-    // for debug
-//    while(!myQueue.empty()){
-//        myQueue.top();
-//        myQueue.pop();
-//    }
+    
+    const char headChar[] = "~";
+    
+    while(myQueue.size() != 1){
+
+        shared_ptr<HNode> left = myQueue.top();
+        myQueue.pop();
+        cout << "right: " << left->get() << " popped." << endl; 
+        shared_ptr<HNode> right = myQueue.top();
+        myQueue.pop();
+        cout << "left: " << right->get() << " popped." << endl;
+
+        nodePtr parent = shared_ptr<HNode>(new HNode(headChar[0], left->f+right->f));
+        // assign family links
+        // TODO fix children nesting
+        parent->setChildren(left, right);
+        left->setParent(parent);
+        right->setParent(parent);
+        myQueue.push(parent);
+    }
+    this->root = myQueue.top();
+//    myQueue.pop();
     ifile.close();
+    this->buildCodes(this->root,"", headChar[0]);
+    cout << endl;
+    for (auto p : codeTable){
+        cout << p.first << ": " << p.second << endl;
+    }
 }
 
-HNode* HTree::getRoot(void){
-    return &(*root);
+nodePtr HTree::getRoot(void){
+    return this->root;
+}
+
+void HTree::buildCodes(nodePtr root, string str, const char head){
+    if (!root) // null
+        return;
+    // TODO: fix 1 '~' node
+    if (root->get() != head)
+        cout << root->get() << ": " << str << endl;
+        codeTable[root->get()] = str;
+ 
+    buildCodes(root->left, str + "0", head);
+    buildCodes(root->right, str + "1", head);
 }

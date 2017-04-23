@@ -5,6 +5,7 @@ default:
 	$(CC) -c -o HuffmanTree.o HuffmanTree.cpp -std=c++11
 	$(CC) -c -o driver.o driver.cpp -std=c++11
 	$(CC) -o huffencode driver.o HuffmanNode.o HuffmanTree.o -std=c++11
+	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
 
 debug:
 	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
@@ -13,3 +14,4 @@ debug:
 clean:
 	rm -f *.o
 	rm huffencode
+	a.out

@@ -18,15 +18,20 @@ namespace FKRRAY001{
     class HuffmanNode{
         typedef std::shared_ptr<HuffmanNode> nodePtr;
         char val;
-        nodePtr left, right, parent;
+        nodePtr parent;
     public:
         struct compare{
+            // TODO: check '>' or '<'
             bool operator()(const std::shared_ptr<HuffmanNode> a, const std::shared_ptr<HuffmanNode> b) const{return a->f > b->f;}
         };
+        nodePtr left, right;
         unsigned f;
         HuffmanNode(char c, unsigned freq): val(c),f(freq){}
         char get(void);
         int getf(void);
+        void setChildren(nodePtr l, nodePtr r);
+        void setParent(nodePtr p);
+        
     };
     
     class HuffmanTree{
@@ -34,12 +39,14 @@ namespace FKRRAY001{
         nodePtr root;
         int uniqueChars;
         std::unordered_map<char, int> charFreqs;
+        std::unordered_map<char, std::string> codeTable;
 
     public:
         HuffmanTree(): root(nullptr){}
-        HuffmanNode* getRoot(void);
         bool insert(char* cptr, int freq);
         void buildTree(std::string fileInName);
+        nodePtr getRoot(void);
+        void buildCodes(nodePtr root, std::string str, const char head);
     };
     
         

@@ -49,10 +49,10 @@ void HTree::buildTree(string fileInName){
 
         shared_ptr<HNode> left = myQueue.top();
         myQueue.pop();
-        cout << "right: " << left->get() << " popped." << endl; 
+//        cout << "right: " << left->get() << " popped." << endl; 
         shared_ptr<HNode> right = myQueue.top();
         myQueue.pop();
-        cout << "left: " << right->get() << " popped." << endl;
+//        cout << "left: " << right->get() << " popped." << endl;
 
         nodePtr parent = shared_ptr<HNode>(new HNode(headChar[0], left->f+right->f));
         // assign family links
@@ -63,13 +63,13 @@ void HTree::buildTree(string fileInName){
         myQueue.push(parent);
     }
     this->root = myQueue.top();
-//    myQueue.pop();
+    myQueue.pop();
     ifile.close();
     this->buildCodes(this->root,"", headChar[0]);
     cout << endl;
-    for (auto p : codeTable){
-        cout << p.first << ": " << p.second << endl;
-    }
+//    for (auto p : codeTable){
+//        cout << p.first << ": " << p.second << endl;
+//    }
 }
 
 nodePtr HTree::getRoot(void){
@@ -79,11 +79,15 @@ nodePtr HTree::getRoot(void){
 void HTree::buildCodes(nodePtr root, string str, const char head){
     if (!root) // null
         return;
-    // TODO: fix 1 '~' node
-    if (root->get() != head)
-        cout << root->get() << ": " << str << endl;
+    
+    if (root->get() == head){
+        buildCodes(root->left, str + "0", head);
+        buildCodes(root->right, str + "1", head);
+    }
+    else{
+//        cout << root->get() << ": " << str << endl;
         codeTable[root->get()] = str;
- 
-    buildCodes(root->left, str + "0", head);
-    buildCodes(root->right, str + "1", head);
+        buildCodes(root->left, str + "0", head);
+        buildCodes(root->right, str + "1", head);
+    }
 }

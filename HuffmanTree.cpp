@@ -35,17 +35,21 @@ void HTree::buildTree(string fileInName){
         else
             charFreqs[c] = charFreqs[c]+1;
     }
-    vector<HNode> nodeVec;
+    vector<shared_ptr<HNode>> nodeVec;
     for (auto c : charFreqs){
-        HNode* newNode = new HNode(c.first, c.second); // TODO: use shared_ptrs
-        nodeVec.push_back(*newNode);
+        nodePtr newNodePtr = shared_ptr<HNode>(new HNode(c.first, c.second));
+        nodeVec.push_back(newNodePtr);
     }
     
-    priority_queue<HNode, vector<HNode>, HNode::compare> myQueue;
-    for (auto v : nodeVec){
+    priority_queue<shared_ptr<HNode>, vector<shared_ptr<HNode>>, HNode::compare> myQueue;
+    for (shared_ptr<HNode> v : nodeVec){
         myQueue.push(v); // TODO: not properly ordered
     }
-    
+    // for debug
+//    while(!myQueue.empty()){
+//        myQueue.top();
+//        myQueue.pop();
+//    }
     ifile.close();
 }
 

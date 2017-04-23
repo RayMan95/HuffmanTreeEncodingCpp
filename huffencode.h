@@ -21,10 +21,10 @@ namespace FKRRAY001{
         nodePtr left, right, parent;
     public:
         struct compare{
-            bool operator()(const HuffmanNode& a, const HuffmanNode& b) const{return a.f > b.f;}
+            bool operator()(const std::shared_ptr<HuffmanNode> a, const std::shared_ptr<HuffmanNode> b) const{return a->f > b->f;}
         };
-        int f;
-        HuffmanNode(char c, int freq): val(c),f(freq){}
+        unsigned f;
+        HuffmanNode(char c, unsigned freq): val(c),f(freq){}
         char get(void);
         int getf(void);
     };

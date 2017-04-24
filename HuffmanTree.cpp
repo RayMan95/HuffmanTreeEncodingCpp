@@ -34,7 +34,8 @@ int HTree::buildTree(string fileInName){
             myQueue.push(v);
         }
 
-        const char headChar[] = "~";
+        // TODO: possibly change parent val
+        const char headChar[] = "~"; // char identifying parent nodes
 
         while(myQueue.size() != 1){
 
@@ -60,8 +61,9 @@ int HTree::buildTree(string fileInName){
     //    for (auto p : codeTable){
     //        cout << p.first << ": " << p.second << endl;
     //    }
-
-        return codeTable.size();
+        
+        uniqueChars = codeTable.size();
+        return uniqueChars;
     }
     return -1; // file didn't open
 }
@@ -86,4 +88,32 @@ void HTree::buildCodes(nodePtr root, string str, const char head){
         buildCodes(root->left, str + "0", head);
         buildCodes(root->right, str + "1", head);
     }
+}
+
+bool HTree::compress(string fileInName, string fileOutName){
+    ifstream ifile(fileInName);
+    if (!ifile.is_open())
+        return false;
+    
+    char c;
+    string s = "";
+    while (ifile >> c){
+        s += codeTable[c];
+    }
+    
+    ifile.close();
+    
+    ofstream ofile(fileOutName + ".hdr");
+    ofile << uniqueChars << endl;
+    for (auto p : codeTable){
+        ofile << p.first << ": " << p.second << endl;
+    }
+    ofile.close();
+    
+    // TODO: check if must be binary
+    ofile.open(fileOutName);
+    ofile << s; // << endl; TODO: check if endl valid
+    ofile.close();
+    
+    return true;
 }

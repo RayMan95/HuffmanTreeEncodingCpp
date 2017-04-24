@@ -33,6 +33,11 @@ int main(int argc, char **argv){
 //        cout << to_string(ht->insert(c,0)) << endl;
 //        cout << to_string(ht->getRoot()->get()) << endl;
         
+        if(ht->compress(inFileName, outFileName))
+            cout << "File compressed successfully" << endl;
+        else
+            cout << "File compress failed" << endl;
+        
         delete ht;
         
         cout << outFileName << " built from " << inFileName << endl;

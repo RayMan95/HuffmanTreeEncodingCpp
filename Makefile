@@ -7,7 +7,7 @@ default: classes
 
 debug:
 	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
-	gdb --args ./a.out ./data/test.txt ./data/output.txt
+	gdb --args ./a.out ./data/test.txt ./data/output
 
 test: classes
 	$(CC) -c -o test.o test.cpp -std=c++11

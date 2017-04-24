@@ -74,14 +74,15 @@ void HTree::buildCodes(nodePtr root, string str, const char head){
     if (!root) // null
         return;
     
-    if (root->get() == head){
+    if (root->get() == head){ // parent node
         buildCodes(root->left, str + "0", head);
         buildCodes(root->right, str + "1", head);
     }
     else{
         cout << root->get() << ": " << str << endl;
         codeTable[root->get()] = str;
-        // inorder
+        // TODO: check is inorder
+        // inorder traversal
         buildCodes(root->left, str + "0", head);
         buildCodes(root->right, str + "1", head);
     }

@@ -28,7 +28,6 @@ namespace FKRRAY001{
         unsigned f;
         HuffmanNode(char c, unsigned freq): val(c),f(freq){}
         char get(void);
-        int getf(void);
         void setChildren(nodePtr l, nodePtr r);
         void setParent(nodePtr p);
         
@@ -40,13 +39,13 @@ namespace FKRRAY001{
         int uniqueChars;
         std::unordered_map<char, int> charFreqs;
         std::unordered_map<char, std::string> codeTable;
+        void buildCodes(nodePtr root, std::string str, const char head);
 
     public:
         HuffmanTree(): root(nullptr){}
-        bool insert(char* cptr, int freq);
         int buildTree(std::string fileInName);
         nodePtr getRoot(void);
-        void buildCodes(nodePtr root, std::string str, const char head);
+        bool compress(std::string fileInName, std::string fileOutName);
     };
     
         

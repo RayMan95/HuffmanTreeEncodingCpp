@@ -23,7 +23,13 @@ int main(int argc, char **argv){
 
         
         FKRRAY001::HuffmanTree * ht = new FKRRAY001::HuffmanTree();
-        cout << ht->buildTree(inFileName) << endl;
+        int uCs = ht->buildTree(inFileName);
+        if(uCs < 0){
+            cout << "File failed to open" << endl;
+        }
+        else{
+            cout << "File had " << uCs << " unique chars" << endl;
+        }
 //        cout << to_string(ht->insert(c,0)) << endl;
 //        cout << to_string(ht->getRoot()->get()) << endl;
         

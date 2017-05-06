@@ -25,6 +25,8 @@ HTree::HuffmanTree(HTree && rhs){
     charFreqs = move(*rhs.getFreqtable());
     myQueue = move(*rhs.getPQueue());
 }
+
+// TODO: review these 2
 // CopyAss op
 HTree& HTree::operator =(HuffmanTree& rhs){
     root = rhs.root;
@@ -38,7 +40,6 @@ HTree& HTree::operator =(HuffmanTree& rhs){
     return *this;
 }
 
-// TODO: review
 // MoveAss op
 HTree& HTree::operator =(HuffmanTree&& rhs){
     root = move(rhs.root);
@@ -46,6 +47,8 @@ HTree& HTree::operator =(HuffmanTree&& rhs){
     codeTable = move(*rhs.getCodeTable());
     charFreqs = move(*rhs.getFreqtable());
     myQueue = move(*rhs.getPQueue());
+    
+    rhs.root = nullptr;
     
     return *this;
 }
@@ -93,10 +96,6 @@ int HTree::buildTree(string fileInName){
         myQueue.pop();
         ifile.close();
         this->buildCodes(this->root,"", headChar[0]);
-    //    cout << endl;
-    //    for (auto p : codeTable){
-    //        cout << p.first << ": " << p.second << endl;
-    //    }
         
         uniqueChars = codeTable.size();
         return uniqueChars;

@@ -1,22 +1,23 @@
 CC=g++
+STD=-std=c++11
 
 default: classes
-	$(CC) -c -o driver.o driver.cpp -std=c++11
-	$(CC) -o huffencode driver.o HuffmanNode.o HuffmanTree.o -std=c++11
-	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
+	$(CC) -c -o driver.o driver.cpp $(STD)
+	$(CC) -o huffencode driver.o HuffmanNode.o HuffmanTree.o $(STD)
+	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp $(STD)
 
 debug:
-	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp -std=c++11
+	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp $(STD)
 	gdb --args ./a.out ./data/test.txt ./data/output
 
 test: classes
-	$(CC) -c -o test.o test.cpp -std=c++11
-	$(CC) -o testAss3 test.o HuffmanNode.o HuffmanTree.o -std=c++11
+	$(CC) -c -o test.o test.cpp $(STD)
+	$(CC) -o testAss3 test.o HuffmanNode.o HuffmanTree.o $(STD)
 	./testAss3
 
 classes:
-	$(CC) -c -o HuffmanNode.o HuffmanNode.cpp -std=c++11
-	$(CC) -c -o HuffmanTree.o HuffmanTree.cpp -std=c++11
+	$(CC) -c -o HuffmanNode.o HuffmanNode.cpp $(STD)
+	$(CC) -c -o HuffmanTree.o HuffmanTree.cpp $(STD)
 	
 mem_leak_check: default
 	valgrind -v ./huffencode ./data/test.txt ./data/output

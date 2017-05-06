@@ -27,6 +27,15 @@ namespace FKRRAY001{
         nodeSPtr left, right;
         unsigned f;
         HuffmanNode(char c, unsigned freq): val(c),f(freq){}
+        ~HuffmanNode() = default;
+        // Copy constr
+	HuffmanNode(HuffmanNode & rhs): val(rhs.get()), f(rhs.f), left(rhs.left), right(rhs.right){};
+	// Move constr
+        HuffmanNode(HuffmanNode && rhs);
+	// CopyAss op
+        HuffmanNode& operator=(HuffmanNode & rhs);
+        // MoveAss op
+        HuffmanNode& operator=(HuffmanNode && rhs);
         char get(void);
         void setChildren(nodeSPtr l, nodeSPtr r);
         

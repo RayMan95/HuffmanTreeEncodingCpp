@@ -17,8 +17,14 @@ test: classes
 classes:
 	$(CC) -c -o HuffmanNode.o HuffmanNode.cpp -std=c++11
 	$(CC) -c -o HuffmanTree.o HuffmanTree.cpp -std=c++11
+	
+mem_leak_check: default
+	valgrind -v ./huffencode ./data/test.txt ./data/output
 
 clean:
 	rm -f *.o
-	rm huffencode
-	a.out
+	rm -f huffencode
+	rm -f a.out
+	rm -f ./data/output
+	rm -f ./data/output.hdr
+	rm -f testAss3

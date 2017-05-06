@@ -24,19 +24,20 @@ int main(int argc, char **argv){
         
         FKRRAY001::HuffmanTree * ht = new FKRRAY001::HuffmanTree();
         int uCs = ht->buildTree(inFileName);
-        if(uCs < 0){
+        if(uCs < 0)
             cout << "File failed to open" << endl;
-        }
+        else if(uCs == 0)
+            cout << "File loaded, but had 0 unique characters" << endl;
         else{
-            cout << "File had " << uCs << " unique chars" << endl;
+            cout << inFileName << " loaded successfully had " << uCs << " unique chars" << endl;
         }
 //        cout << to_string(ht->insert(c,0)) << endl;
 //        cout << to_string(ht->getRoot()->get()) << endl;
         
-        if(ht->compress(inFileName, outFileName))
-            cout << "File compressed successfully" << endl;
+        if(ht->encode(inFileName, outFileName))
+            cout << "File encoded successfully" << endl;
         else
-            cout << "File compress failed" << endl;
+            cout << "File encode failed" << endl;
         
         delete ht;
         

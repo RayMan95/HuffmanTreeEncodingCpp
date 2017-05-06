@@ -8,17 +8,15 @@ using namespace std;
 
 using HTree = FKRRAY001::HuffmanTree;
 using HNode = FKRRAY001::HuffmanNode;
-typedef shared_ptr<FKRRAY001::HuffmanNode> nodePtr;
+typedef shared_ptr<FKRRAY001::HuffmanNode> nodeSPtr;
+
 
 char HNode::get(){
     return this->val;
 }
 
-void HNode::setChildren(nodePtr l, nodePtr r){
+void HNode::setChildren(nodeSPtr l, nodeSPtr r){
     this->left = l;
     this->right = r;
 }
 
-void HNode::setParent(nodePtr p){
-    this->parent = p;
-}

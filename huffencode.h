@@ -16,36 +16,55 @@ namespace FKRRAY001{
     void say(std::string s);
     
     class HuffmanNode{
-        typedef std::shared_ptr<HuffmanNode> nodePtr;
+        typedef std::shared_ptr<HuffmanNode> nodeSPtr;
+        
         char val;
-        nodePtr parent;
     public:
         struct compare{
             // TODO: check '>' or '<'
             bool operator()(const std::shared_ptr<HuffmanNode> a, const std::shared_ptr<HuffmanNode> b) const{return a->f > b->f;}
         };
-        nodePtr left, right;
+        nodeSPtr left, right;
         unsigned f;
         HuffmanNode(char c, unsigned freq): val(c),f(freq){}
         char get(void);
-        void setChildren(nodePtr l, nodePtr r);
-        void setParent(nodePtr p);
+        void setChildren(nodeSPtr l, nodeSPtr r);
         
     };
     
     class HuffmanTree{
-        typedef std::shared_ptr<HuffmanNode> nodePtr;
-        nodePtr root;
+        typedef std::shared_ptr<HuffmanNode> nodeSPtr;
+        
+        
         int uniqueChars;
         std::unordered_map<char, int> charFreqs;
         std::unordered_map<char, std::string> codeTable;
-        void buildCodes(nodePtr root, std::string str, const char head);
+        // is a min-queue
+        std::priority_queue<nodeSPtr, std::vector<nodeSPtr>, HuffmanNode::compare> myQueue;
+        void buildCodes(nodeSPtr root, std::string str, const char head);
 
     public:
+        nodeSPtr root;
+        
         HuffmanTree(): root(nullptr){}
+        ~HuffmanTree();
+        // Copy constr
+	HuffmanTree(HuffmanTree & rhs): root(rhs.root), uniqueChars(rhs.getUniqueChars()), 
+            codeTable(*rhs.getCodeTable()), charFreqs(*rhs.getFreqtable()), myQueue(*rhs.getPQueue()){};
+	// Move constr
+        HuffmanTree(HuffmanTree && rhs);
+	// CopyAss op
+        HuffmanTree& operator=(HuffmanTree & rhs);
+        // MoveAss op
+        HuffmanTree& operator=(HuffmanTree && rhs);
+        
         int buildTree(std::string fileInName);
-        nodePtr getRoot(void);
-        bool compress(std::string fileInName, std::string fileOutName);
+        nodeSPtr getRoot(void);
+        int getUniqueChars();
+        std::unordered_map<char, std::string>* getCodeTable();
+        std::unordered_map<char, int>* getFreqtable();
+        std::priority_queue<nodeSPtr, std::vector<nodeSPtr>, HuffmanNode::compare>* getPQueue();
+        bool encode(std::string fileInName, std::string fileOutName);
     };
     
         

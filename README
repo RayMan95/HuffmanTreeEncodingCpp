@@ -1,4 +1,39 @@
 Author: Rayaan Fakier FKRRAY001
 Date: 21-04-2017
 
-WELCOME ETC>
+Thanks for using my genius piece of art!
+
+1) Project Structure
+All source code kept in main directory.
+Test data used for test file kept in data directory.
+
+*huffencode.h
+	- Header file for project. Contains definitions for HuffmanNode and HuffmanTree classes
+
+*HuffmanNode.cpp:
+	- Definitions for HuffmanNode class - serves as nodes for the HuffmanTree
+	- Holds a char and frequency, as well as 'shared_ptr's to left and right children
+
+*HuffmanTree.cpp:
+	- Definitions for HuffmanTree class - serves as tree and performs the encoding of the files
+	- Holds a shared_ptr for the root, and holds various containers used for building the tree and encoding the files
+
+*driver.cpp:
+	- Driver class for project
+	- Handles console I/O
+	- Uses command-line args to run HuffmanTree methods
+	- Provides output messages for progress of encoding
+
+*test.cpp:
+	- Test file containing catch.hpp header and all tests
+
+2) Running Project
+	1) Direct terminal to directory containing project files (driver.cpp, HuffmanTree.cpp, etc.)
+	2) Run command: make
+	3) Run command: huffencode <inputFile> <outputFile>
+		- inputFile is the name of the inputfile to encode
+		- outputFile is the name of the resulting encoded file
+		- NB: relative paths must be provided for files
+	4) To run Catch test, run command: make test
+		- NB: this requires that the command 'make' has already been run
+		- All output of the test is sent to ./data/catch_output.inf

@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include "huffencode.h"
 
 using namespace std;
@@ -125,16 +126,25 @@ void HTree::buildCodes(nodeSPtr root, string str, const char head){
 }
 
 bool HTree::encode(string fileInName, string fileOutName){
+    int inSize = 0,outSize = 0;
     ifstream ifile(fileInName);
     if (!ifile.is_open())
         return false;
     
     char c;
-    string s = "";
-    while (ifile >> c){
-        s += codeTable[c]; // build output from codetable
+    string s = "", line;
+    while (getline(ifile,line)){
+        istringstream iss(line);
+        while(iss >> c){
+            s += codeTable[c]; // build output from codetable
+            outSize += codeTable[c].length();
+            inSize++;
+        }
+        s+="\n";
     }
     ifile.close();
+    
+    compression = outSize/inSize;
     
     ofstream ofile(fileOutName);
     ofile << s;
@@ -165,4 +175,8 @@ unordered_map<char, string>* HTree::getCodeTable(){
 
 priority_queue<nodeSPtr, vector<nodeSPtr>, HNode::compare>* HTree::getPQueue(){
     return &myQueue;
+}
+
+int HTree::getCompressionRatio(){
+    return compression;
 }

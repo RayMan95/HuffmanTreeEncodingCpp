@@ -12,8 +12,6 @@
 #include <vector>
 
 namespace FKRRAY001{
-	
-    void say(std::string s);
     
     class HuffmanNode{
         typedef std::shared_ptr<HuffmanNode> nodeSPtr;
@@ -43,8 +41,7 @@ namespace FKRRAY001{
     class HuffmanTree{
         typedef std::shared_ptr<HuffmanNode> nodeSPtr;
         
-        
-        int uniqueChars;
+        int uniqueChars, compression;
         std::unordered_map<char, int> charFreqs;
         std::unordered_map<char, std::string> codeTable;
         // is a min-queue
@@ -73,6 +70,8 @@ namespace FKRRAY001{
         std::unordered_map<char, int>* getFreqMap();
         std::priority_queue<nodeSPtr, std::vector<nodeSPtr>, HuffmanNode::compare>* getPQueue();
         bool encode(std::string fileInName, std::string fileOutName);
+        int getCompressionRatio();
+            // return (Nbits/8) + (Nbits%8 ? 1 : 0); bit packing
     };
     
         

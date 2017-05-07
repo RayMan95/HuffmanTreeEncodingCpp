@@ -32,8 +32,10 @@ int main(int argc, char **argv){
 //        cout << to_string(ht->insert(c,0)) << endl;
 //        cout << to_string(ht->getRoot()->get()) << endl;
         
-        if(ht->encode(inFileName, outFileName))
+        if(ht->encode(inFileName, outFileName)){
             cout << "File encoded successfully" << endl;
+            cout << "Compressed at a ratio of (outputfilesize/inputfilesize): " << ht->getCompressionRatio() << endl;
+        }
         else
             cout << "File encode failed" << endl;
         

@@ -8,8 +8,6 @@
 
 using namespace std;
 
-void FKRRAY001::say(string s);
-
 int main(int argc, char **argv){
     if (argc != 3){
         cout << "Well then get your shit together, get it all together and put it in a back pack,\

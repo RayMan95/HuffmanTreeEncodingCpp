@@ -22,7 +22,7 @@ HTree::HuffmanTree(HTree && rhs){
     
     uniqueChars = move(rhs.getUniqueChars());
     codeTable = move(*rhs.getCodeTable());
-    charFreqs = move(*rhs.getFreqtable());
+    charFreqs = move(*rhs.getFreqMap());
     myQueue = move(*rhs.getPQueue());
 }
 
@@ -32,7 +32,7 @@ HTree& HTree::operator =(HuffmanTree& rhs){
     root = rhs.root;
     uniqueChars = rhs.getUniqueChars();
     codeTable = *rhs.getCodeTable();
-    charFreqs = *rhs.getFreqtable();
+    charFreqs = *rhs.getFreqMap();
     myQueue = *rhs.getPQueue();
     
     rhs.root = nullptr;
@@ -45,7 +45,7 @@ HTree& HTree::operator =(HuffmanTree&& rhs){
     root = move(rhs.root);
     uniqueChars = move(rhs.getUniqueChars());
     codeTable = move(*rhs.getCodeTable());
-    charFreqs = move(*rhs.getFreqtable());
+    charFreqs = move(*rhs.getFreqMap());
     myQueue = move(*rhs.getPQueue());
     
     rhs.root = nullptr;
@@ -116,7 +116,7 @@ void HTree::buildCodes(nodeSPtr root, string str, const char head){
         buildCodes(root->right, str + "1", head);
     }
     else{
-        cout << root->get() << ": " << str << endl;
+//        cout << root->get() << ": " << str << endl;
         codeTable[root->get()] = str;
         // inorder traversal
         buildCodes(root->left, str + "0", head);
@@ -137,7 +137,7 @@ bool HTree::encode(string fileInName, string fileOutName){
     ifile.close();
     
     ofstream ofile(fileOutName);
-    ofile << s; // << endl; TODO: check if endl valid
+    ofile << s;
     ofile.close();
     
     ofile.open(fileOutName + ".hdr");
@@ -154,7 +154,8 @@ int HTree::getUniqueChars(){
     return uniqueChars;
 }
 
-unordered_map<char, int>* HTree::getFreqtable(){
+// TODO: review returning references
+unordered_map<char, int>* HTree::getFreqMap(){
     return &charFreqs;
 }
 

@@ -10,10 +10,11 @@ debug:
 	$(CC) -g driver.cpp HuffmanNode.cpp HuffmanTree.cpp $(STD)
 	gdb --args ./a.out ./data/test.txt ./data/output
 
-test: classes
+test:
 	$(CC) -c -o test.o test.cpp $(STD)
 	$(CC) -o testAss3 test.o HuffmanNode.o HuffmanTree.o $(STD)
-	./testAss3
+	./testAss3 -s -o ./data/catch_output.inf
+	#full test output sent to file ./data/catch_output.inf
 
 classes:
 	$(CC) -c -o HuffmanNode.o HuffmanNode.cpp $(STD)

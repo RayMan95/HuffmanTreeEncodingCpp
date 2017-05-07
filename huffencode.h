@@ -21,7 +21,6 @@ namespace FKRRAY001{
         char val;
     public:
         struct compare{
-            // TODO: check '>' or '<'
             bool operator()(const std::shared_ptr<HuffmanNode> a, const std::shared_ptr<HuffmanNode> b) const{return a->f > b->f;}
         };
         nodeSPtr left, right;
@@ -59,7 +58,7 @@ namespace FKRRAY001{
         ~HuffmanTree();
         // Copy constr
 	HuffmanTree(HuffmanTree & rhs): root(rhs.root), uniqueChars(rhs.getUniqueChars()), 
-            codeTable(*rhs.getCodeTable()), charFreqs(*rhs.getFreqtable()), myQueue(*rhs.getPQueue()){};
+            codeTable(*rhs.getCodeTable()), charFreqs(*rhs.getFreqMap()), myQueue(*rhs.getPQueue()){};
 	// Move constr
         HuffmanTree(HuffmanTree && rhs);
 	// CopyAss op
@@ -71,7 +70,7 @@ namespace FKRRAY001{
         nodeSPtr getRoot(void);
         int getUniqueChars();
         std::unordered_map<char, std::string>* getCodeTable();
-        std::unordered_map<char, int>* getFreqtable();
+        std::unordered_map<char, int>* getFreqMap();
         std::priority_queue<nodeSPtr, std::vector<nodeSPtr>, HuffmanNode::compare>* getPQueue();
         bool encode(std::string fileInName, std::string fileOutName);
     };
